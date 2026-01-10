@@ -123,7 +123,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://depe.blog/twaiq-bootcamp-ctf-2025-forensics/"/>
+    <link rel="canonical" href="http://depe.blog/tags/ewptx/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -132,15 +132,13 @@
     
         
         <meta name="description" content="Try HARDER !">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Twaiq bootcamp ctf 2025 - Forensics">
-<meta property="og:url" content="http://depe.blog/Twaiq-bootcamp-ctf-2025-Forensics/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="depe">
+<meta property="og:url" content="http://depe.blog/tags/eWPTX/index.html">
 <meta property="og:site_name" content="depe">
 <meta property="og:description" content="Try HARDER !">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://depe.blog/images/redefine-og.webp">
-<meta property="article:published_time" content="2025-09-02T00:36:50.000Z">
-<meta property="article:modified_time" content="2025-12-22T06:17:39.734Z">
 <meta property="article:author" content="Depe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://depe.blog/images/redefine-og.webp">
@@ -155,7 +153,7 @@
     
     <title>
         
-            Twaiq bootcamp ctf 2025 - Forensics | Depe&#39;s Blog
+            Tag: eWPTX | Depe&#39;s Blog
         
     </title>
 
@@ -338,298 +336,58 @@
 			
 
 			<div class="main-content">
-				<div class="post-page-container flex relative justify-between box-border w-full h-full">
-	<div class="article-content-container">
-
-		<div class="article-title relative w-full">
-			
-			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Twaiq bootcamp ctf 2025 - Forensics</h1>
-			</div>
-			
-		</div>
-
-		
-		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
-			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
-				<img src="/images/redefine-avatar.svg">
-			</div>
-			<div class="info flex flex-col justify-between">
-				<div class="author flex items-center">
-					<span class="name text-default-text-color text-lg font-semibold">Depe</span>
-					
-					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv1</span>
-					
-				</div>
-				<div class="meta-info">
-					<div class="article-meta-info">
-    <span class="article-date article-meta-item">
-        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2025-09-02 03:36:50</span>
-        <span class="mobile">2025-09-02 03:36:50</span>
-        <span class="hover-info">Created</span>
-    </span>
-    
-        <span class="article-date article-meta-item">
-            <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-12-22 09:17:39</span>
-            <span class="mobile">2025-12-22 09:17:39</span>
-            <span class="hover-info">Updated</span>
-        </span>
-    
-
-    
-    
-
-    
-    
-    
-    
-        <span class="article-pv article-meta-item">
-            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
-        </span>
-    
-</div>
-
-				</div>
-			</div>
-		</div>
-		
-
-		
-
-
-		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<p>Hi, I’m Depe.. and in this post we gonna go through the forensics challenges from the Twaiq Bootcamp CTF.<br>The challenges were honestly kinda basic &amp; trivial (at least for me) but since i had nothing better to do i thought why not.. also it was the perfect excuse to waste some time (i was not totally procrastinating studying a(tra)ctive directory 🤓)</p>
-<h1 id="Forensics-01"><a href="#Forensics-01" class="headerlink" title="Forensics 01"></a>Forensics 01</h1><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/Twaiq-bootcamp-ctf-2025-Forensics/f1.png"
-                      class="" title="Alt text"
-                >
-
-<p>challenge description :</p>
-<p><code>the file came from an unknow source. Can you figure out who created it ?</code></p>
-<p>And this weird-looking “ugly” windows image was given</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/Twaiq-bootcamp-ctf-2025-Forensics/windows.jpg"
-                      class="" title="Alt text"
-                >
-
-<h2 id="solution"><a href="#solution" class="headerlink" title="solution"></a><em>solution</em></h2><p>As hinted in the challenge description … the <code>source</code> word indicates  that there is something hidden in the meta-data</p>
-<h4 id="what-is-Metadata"><a href="#what-is-Metadata" class="headerlink" title="what is Metadata ?"></a>what is Metadata ?</h4><p>Quoted from NCEI<br><code>Metadata, or &quot;data about data&quot;, is structured information that describes, explains, or provides context for other data, making it easier to find, use, and manage. It includes details like an item&#39;s creation date, author, format, and purpose, serving as crucial documentation to understand the data&#39;s history, quality, and intended use.</code> </p>
-<p>so as hinted in the challenge i investigated the meta-data of the image using <code>exiftool</code> (faster) and took a closer look at them.</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/Twaiq-bootcamp-ctf-2025-Forensics/f1s.png"
-                      class="" title="Alt text"
-                >
-
-<p>looking at the <code>Author</code> section we can see the flag, and that was the soultion.</p>
-<h1 id="Forensics-02"><a href="#Forensics-02" class="headerlink" title="Forensics 02"></a>Forensics 02</h1><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/Twaiq-bootcamp-ctf-2025-Forensics/f2.png"
-                      class="" title="Alt text"
-                >
-
-<p>challenge description :</p>
-<p><code>A group of hackers exchanged an image to hide a seceret message. At firsist glance it looked normal but something was off....try to fix the distorition and reveal what they were hiding ?</code></p>
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;rootkitz&gt; yo, did you upload the dump?</span><br><span class="line"></span><br><span class="line">&lt;b4ckdr0p&gt; yeah, but <span class="keyword">not</span> <span class="keyword">as</span>-<span class="keyword">is</span>. I warped it.</span><br><span class="line"></span><br><span class="line">&lt;rootkitz&gt; nice. EXIF clean?</span><br><span class="line"></span><br><span class="line">&lt;b4ckdr0p&gt; <span class="built_in">all</span> scrubbed. Applied a subtle horizontal distortion before uploading.</span><br><span class="line"></span><br><span class="line">&lt;rootkitz&gt; distortion? how noticeable?</span><br><span class="line"></span><br><span class="line">&lt;b4ckdr0p&gt; <span class="keyword">not</span> much — just enough to throw off automated tools. You’d need to reverse it manually to get anything usable.</span><br><span class="line"></span><br><span class="line">&lt;rootkitz&gt; clever. so you think anyone will catch on?</span><br><span class="line"></span><br><span class="line">&lt;b4ckdr0p&gt; doubt it. unless they <span class="keyword">try</span> some reverse transforms <span class="keyword">and</span> get lucky.</span><br><span class="line"></span><br><span class="line">&lt;rootkitz&gt; slick. hope no one’s smart enough to check that.</span><br></pre></td></tr></table></figure></div>
-
-
-<p>And this weird-looking  image was given</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/Twaiq-bootcamp-ctf-2025-Forensics/Warped_Vision.jpg"
-                      class="" title="Alt text"
-                >
-
-<h2 id="solution-1"><a href="#solution-1" class="headerlink" title="solution"></a><em>solution</em></h2><p>This is a classic Steganography technique where text or data is hidden by drastically altering the aspect ratio of an image, making it unreadable to the naked eye.</p>
-<p>To solve this, I fired up GIMP to manually reverse the distortion.</p>
-<ul>
-<li><p>Open the Warped_Vision.jpg in GIMP.</p>
-</li>
-<li><p>Select the Sheer Tool (Shift+H).</p>
-</li>
-<li><p>Since the chat mentioned “horizontal distortion”, I broke the aspect ratio link (the chain icon) to<br>manipulate width and height independently.</p>
-</li>
-<li><p>I squeezed the width (or stretched the height) to correct the aspect ratio.</p>
-</li>
-</ul>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/Twaiq-bootcamp-ctf-2025-Forensics/f2s1.png"
-                      class="" title="Alt text"
-                >
-
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/Twaiq-bootcamp-ctf-2025-Forensics/image.png"
-                      class="" title="Alt text"
-                >
-
-<p>After resizing the canvas and finding the correct ratio, the “warped” pixels aligned perfectly to reveal the flag written on the image.</p>
-<h1 id="Forensics-03"><a href="#Forensics-03" class="headerlink" title="Forensics 03"></a>Forensics 03</h1><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/Twaiq-bootcamp-ctf-2025-Forensics/f3.png"
-                      class="" title="Alt text"
-                >
-
-<p>challenge description :</p>
-<p><code>We captured network traffic and noticed suspicious requests from someone on the same network. Can you find out what he was doing?</code></p>
-<p>And a traffic.txt file was given containing captured packets:</p>
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">No.     Time           Source                Destination           Protocol Length Info</span><br><span class="line">      <span class="number">1</span> <span class="number">0.000000000</span>    <span class="number">192.168</span><span class="number">.47</span><span class="number">.129</span>        <span class="number">70.108</span><span class="number">.97</span><span class="number">.103</span>         ICMP     <span class="number">100</span>    Echo (ping) request  <span class="built_in">id</span>=<span class="number">0x000a</span>, seq=<span class="number">1</span>/<span class="number">256</span>, ttl=<span class="number">64</span> (no response found!)</span><br><span class="line">...</span><br></pre></td></tr></table></figure></div>
-
-<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>The challenge provides a text dump of network traffic, specifically ICMP Echo (ping) requests. Looking closely at the “Destination” IP addresses in the packet list, they looked a bit unusual.</p>
-<p>The description hints at “suspicious requests,” and often in CTFs, data can be hidden in fields like IP addresses.</p>
-<p>I decided to extract all the Destination IP addresses to see if they formed a message. I used some Linux command-line magic to grep and cut the IPs out of the file:</p>
-<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> traffic.txt | grep <span class="string">&quot;192.168.47.129&quot;</span> | awk <span class="string">&#x27;&#123;print $5&#125;&#x27;</span> &gt; ips.txt</span><br></pre></td></tr></table></figure></div>
-
-<p>This gave me a list of IPs like: 70.108.97.103 89.123.57.102 …</p>
-<p>I treated these numbers as ASCII codes. I pasted the list into CyberChef and used the From Decimal recipe. I set the delimiter to Dot (.) to interpret the IP address octets as individual characters.<br>Converting the sequence of numbers from decimal to ASCII revealed the flag!</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/Twaiq-bootcamp-ctf-2025-Forensics/last.png"
-                      class="" title="Alt text"
-                >
-
-		</div>
-
-		
-		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
-			<div class="article-copyright-info-container">
-    <ul>
-        <li><strong>Title:</strong> Twaiq bootcamp ctf 2025 - Forensics</li>
-        <li><strong>Author:</strong> Depe</li>
-        <li><strong>Created at
-                :</strong> 2025-09-02 03:36:50</li>
-        
-            <li>
-                <strong>Updated at
-                    :</strong> 2025-12-22 09:17:39
-            </li>
-        
-        <li>
-            <strong>Link:</strong> https://depe.blog/Twaiq-bootcamp-ctf-2025-Forensics/
-        </li>
-        <li>
-            <strong>
-                License:
-            </strong>
-            
-
-            
-                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
-            
-        </li>
-    </ul>
-</div>
-
-		</div>
-		
-
-		
-
-		
-
-		
-		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
-			
-			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/BlackHat-mea-Quals-2025-%E2%80%94-Web-challenges/">
-					<span class="left arrow-icon flex justify-center items-center">
-						<i class="fa-solid fa-chevron-left"></i>
-					</span>
-					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">BlackHat mea Quals 2025 — Web challenges</span>
-						<span class="post-nav-item">Prev posts</span>
-					</span>
-				</a>
-			</div>
-			
-			
-			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="next" rel="next" href="/BlackHat-MEA-CTF-2022-%E2%80%94-Forensic-challenges/">
-					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">BlackHat MEA CTF 2022 — Forensic Challenges</span>
-						<span class="post-nav-item">Next posts</span>
-					</span>
-					<span class="right arrow-icon flex justify-center items-center">
-						<i class="fa-solid fa-chevron-right"></i>
-					</span>
-				</a>
-			</div>
-			
-		</div>
-		
-
-
-		
-		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
-			<div class="comments-container mt-10 w-full ">
-    <div id="comment-anchor" class="w-full h-2.5"></div>
-    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
-        Comments
-    </div>
-    
-
-        
-            
-    <div id="waline"></div>
-    <script type="module" data-swup-reload-script>
-      import { init } from '/js/libs/waline.mjs';
-
-      function loadWaline() {
-        init({
-          el: '#waline',
-          serverURL: 'https://example.example.com',
-          dark: 'body[class~="dark-mode"]',
-          reaction: false,
-          requiredMeta: ['nick', 'mail'],
-          emoji: [],
-                    lang: 'en-US',
-        });
-      }
-
-      if (typeof swup !== 'undefined') {
-        loadWaline();
-      } else {
-        window.addEventListener('DOMContentLoaded', loadWaline);
-      }
-    </script>
-
-
-
-        
-    
-</div>
-
-		</div>
-		
-	</div>
+				<div class="page-template-container">
+	
 
 	
-	<div class="toc-content-container">
-		<div class="post-toc-wrap">
-	<div class="post-toc">
-		<div class="toc-title">On this page</div>
-		<div class="page-title">Twaiq bootcamp ctf 2025 - Forensics</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Forensics-01"><span class="nav-text">Forensics 01</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#solution"><span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Forensics-02"><span class="nav-text">Forensics 02</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#solution-1"><span class="nav-text">solution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Forensics-03"><span class="nav-text">Forensics 03</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Solution"><span class="nav-text">Solution</span></a></li></ol>
-
-	</div>
+	<div class="tag-name">
+    <i class="fa-solid fa-tag"></i>&nbsp;eWPTX
 </div>
-	</div>
+<div class="tag-post-list">
+    
+<div class="archive-list-container">
+    
+        <section class="archive-item mb-spacing-unit last:mb-0">
+            <div class="archive-item-header flex flex-row items-center mb-2">
+                <span class="archive-year font-semibold text-3xl mr-2">2026</span>
+                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">1</span>
+            </div>
+            
+            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
+                
+                    
+                    
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-02'>
+                    
+                    <a href="/eWPTXv3-review/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">eWPTXv3-review</span>
+                    </a>
+                    
+                
+                </li> <!-- Ensure the last item is properly closed -->
+            </ul>
+        </section>
+    
+</div>
+</div>
 	
+
+	<div class="page-template-content markdown-body">
+		
+
+		
+	</div>
+
+	<div class="page-template-comments">
+		
+	</div>
 </div>
+
+<div class="paginator">
+	<span class="page-number current">1</span>
+</div>
+  
 			</div>
 
 			
@@ -695,26 +453,6 @@
 		</div>
 	</div>
 
-	
-	<div class="post-tools">
-		<div class="post-tools-container">
-	<ul class="article-tools-list">
-		<!-- TOC aside toggle -->
-		
-		<li class="right-bottom-tools page-aside-toggle">
-			<i class="fa-regular fa-outdent"></i>
-		</li>
-		
-
-		<!-- go comment -->
-		
-		<li class="go-comment">
-			<i class="fa-regular fa-comments"></i>
-		</li>
-		
-	</ul>
-</div>
-	</div>
 	
 
 	<div class="right-side-tools-container">
@@ -797,7 +535,6 @@
         containers: ["#swup"],
     });
 </script>
-
 
 
 
